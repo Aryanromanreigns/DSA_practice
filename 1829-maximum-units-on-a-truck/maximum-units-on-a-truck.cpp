@@ -6,26 +6,26 @@ public:
         }
         return a[1] > b[1];
     }
-    int maximumUnits(vector<vector<int>>&arr, int k) {
+    int maximumUnits(vector<vector<int>>& arr, int k) {
         int n = arr.size();
         sort(arr.begin() , arr.end() , cmp);
+
         int sum = 0;
 
-        for(int i = 0 ; i < n ; i++){
-            if(k == 0)break;
-            if(arr[i][0] <= k){
+        int i = 0;
+        while(i < n){
+            if(k >= arr[i][0]){
                 sum += arr[i][0] * arr[i][1];
-                k -= arr[i][0];
+                k = k - arr[i][0];
 
             }
             else{
-                    while(k > 0){
-                    sum += arr[i][1];
-                    k--;
-                    if(k == 0)break;
-                    }
-                
+                sum += k*arr[i][1];
+                k = 0;
             }
+
+            i++;
+            if(k == 0)break;
         }
         return sum;
 
