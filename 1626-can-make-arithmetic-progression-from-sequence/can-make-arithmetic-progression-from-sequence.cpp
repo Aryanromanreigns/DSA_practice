@@ -5,18 +5,22 @@ public:
         sort(arr.begin() , arr.end());
         int i = 0;
         int j = i+1;
-        vector<int>ans;
+        int fidiff = arr[j] - arr[i];
+        // vector<int>ans;
         while(j < n){
-            ans.push_back(arr[j] - arr[i]);
+            int diff = arr[j] - arr[i];
+            if(diff != fidiff){
+                return false;
+            }
             i++;
             j++;
         }
-        int val = ans[0];
-        for(int i = 1 ; i < ans.size() ; i++){
-            if(ans[i] != val){
-                return false;
-            }
-        }
+        // int val = ans[0];
+        // for(int i = 1 ; i < ans.size() ; i++){
+        //     if(ans[i] != val){
+        //         return false;
+        //     }
+        // }
         return true;
         
     }
