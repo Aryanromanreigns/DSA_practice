@@ -1,21 +1,19 @@
 class Solution {
 public:
-    int leastInterval(vector<char>& tasks, int n) {
-        int m = tasks.size();
-        priority_queue<pair<int , char>>pq;
+    int leastInterval(vector<char>& nums, int n) {
+        int m = nums.size();
         unordered_map<char , int>mpp;
         for(int i = 0 ; i < m ; i++){
-            mpp[tasks[i]]++;
+            mpp[nums[i]]++;
         }
+        priority_queue<pair<int , char>>pq;
         for(auto it : mpp){
-            char first = it.first;
-            int second = it.second;
-            pq.push({second , first});
+            pq.push({it.second ,it.first});
         }
 
         int cnt = 0;
         while(!pq.empty()){
-            int k = n + 1;
+            int k = n+1;
             vector<pair<int , char>>arr;
 
             while(k > 0 && !pq.empty()){
@@ -26,22 +24,20 @@ public:
                 top.first--;
                 k--;
 
-                if(top.first > 0)arr.push_back(top);
+
+                if(top.first > 0)
+                arr.push_back(top);
 
             }
-
             for(int i = 0 ; i < arr.size() ; i++){
                 pq.push(arr[i]);
             }
+
             if(!pq.empty()){
                 cnt += k;
             }
-           
         }
-
         return cnt;
-
-
         
     }
 };
