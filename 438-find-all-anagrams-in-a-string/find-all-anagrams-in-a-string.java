@@ -1,42 +1,57 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-        int n = s.length();
-        int m = p.length();
 
-        HashMap<Character , Integer>mpp = new HashMap<>();
-        HashMap<Character , Integer>mpps = new HashMap<>();
+        List<Integer> ans = new ArrayList<>();
 
-        for(int i = 0 ; i < m ; i++){
-            mpp.put(p.charAt(i) , mpp.getOrDefault(p.charAt(i),0)+1);
+        if(s.length() < p.length()) return ans;
+
+        HashMap<Character, Integer> mpp = new HashMap<>();
+
+        for(int i = 0; i < p.length(); i++){
+            char ch = p.charAt(i);
+            mpp.put(ch, mpp.getOrDefault(ch, 0) + 1);
         }
 
+        int low = 0;
+        int high = 0;
+        int k = p.length();
+        int cnt = 0;
 
-        int left = 0;
-        int right = 0;
-        List<Integer>arr = new ArrayList<>();
+        while(high < s.length()){
 
-        while(right < n){
-            mpps.put(s.charAt(right) , mpps.getOrDefault(s.charAt(right),0)+1);
+            char ch = s.charAt(high);
 
-            if(right - left + 1 > m){
-                mpps.put(s.charAt(left) , mpps.get(s.charAt(left))-1);
+            if(mpp.containsKey(ch)){
+                mpp.put(ch, mpp.get(ch) - 1);
 
-                if(mpps.get(s.charAt(left)) == 0){
-                    mpps.remove(s.charAt(left));
-                }
-                left++;
-            }
-
-            if(right - left + 1 == m){
-                if(mpps.equals(mpp)){
-                    arr.add(left);
+                if(mpp.get(ch) == 0){
+                    cnt++;
                 }
             }
 
-            right++;
-        }
-        return arr;
+            if(high - low + 1 == k){
 
-        
+                if(cnt == mpp.size()){
+                    ans.add(low);
+                }
+
+                char left = s.charAt(low);
+
+                if(mpp.containsKey(left)){
+
+                    if(mpp.get(left) == 0){
+                        cnt--;
+                    }
+
+                    mpp.put(left, mpp.get(left) + 1);
+                }
+
+                low++;
+            }
+
+            high++;
+        }
+
+        return ans;
     }
 }
