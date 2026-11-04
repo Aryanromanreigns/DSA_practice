@@ -3,30 +3,29 @@ class Solution {
         int n = s.length();
         int m = t.length();
 
+        if(n != m)return false;
+
         HashMap<Character , Integer>mpp = new HashMap<>();
+
         for(int i = 0 ; i < n ; i++){
-            mpp.put(s.charAt(i) , mpp.getOrDefault(s.charAt(i),0)+1);
+            mpp.put(s.charAt(i), mpp.getOrDefault(s.charAt(i),0)+1);
         }
 
         for(int i = 0 ; i < m ; i++){
-            if(!mpp.containsKey(t.charAt(i))){
+            char ch = t.charAt(i);
+            if(mpp.containsKey(ch)){
+                mpp.put(ch , mpp.get(ch)-1);
+
+                if(mpp.get(ch) == 0){
+                    mpp.remove(ch);
+                }
+            }
+            else{
                 return false;
             }
-            mpp.put(t.charAt(i) , mpp.get(t.charAt(i))-1);
-
-            if(mpp.get(t.charAt(i))== 0){
-                mpp.remove(t.charAt(i));
-            }
-
         }
 
-        if(mpp.isEmpty()){
-            return true;
-        }
-        else{
-            return false;
-        }
-
+        return true;
 
         
     }
