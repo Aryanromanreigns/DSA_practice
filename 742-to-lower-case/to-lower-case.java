@@ -4,7 +4,12 @@ class Solution {
         String ans = "";
 
         for(int i = 0 ; i < n ; i++){
-            ans += Character.toLowerCase(s.charAt(i));
+            char ch = s.charAt(i);
+            if(ch >= 65 && ch <= 90){
+                ans += (char)(ch - 'A' + 'a');
+            }else{
+                ans += ch;
+            }
         }
         return ans;
         
