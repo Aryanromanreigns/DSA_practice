@@ -1,28 +1,28 @@
 class Solution {
-    public int maximumUnits(int[][] arr, int k) {
-        int n = arr.length;
-        Arrays.sort(arr , (a , b) -> {
-            if(a[1] == b[1]){
-                return b[0] - a[0];
-            }
-            return b[1] - a[1];
-        });
-        int cnt = 0;
+    public int maximumUnits(int[][] boxTypes, int truckSize) {
+         int n = boxTypes.length;
+        Arrays.sort(boxTypes , (a , b) -> Integer.compare(b[1] , a[1]));
 
+        int total = 0;
         for(int i = 0 ; i < n ; i++){
-            if(arr[i][0] <= k){
-                cnt += arr[i][0] * arr[i][1];
-                k -= arr[i][0];                
+            if(truckSize > 0){
+                if(truckSize >= boxTypes[i][0]){
+                total += boxTypes[i][0] * boxTypes[i][1];
+                truckSize -= boxTypes[i][0];
+                }
+                else{
+                    total += truckSize * boxTypes[i][1];
+                    truckSize = 0;
+                }
+
             }
-            else{
-                cnt += k * arr[i][1];
-                k = 0;
+            if(truckSize == 0){
+                break;
             }
-            if(k == 0)break;
         }
-        return cnt;
 
-
+        return total;
+        
         
     }
 }
