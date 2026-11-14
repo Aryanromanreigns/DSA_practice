@@ -3,18 +3,14 @@ class Solution {
         Arrays.sort(g);
         Arrays.sort(s);
 
-        Integer cnt = 0 , i = 0 , j = 0;
+        int i = 0 , j = 0;
         while(i < g.length && j < s.length){
             if(g[i] <= s[j]){
-                cnt++;
                 i++;
-                j++;
             }
-            else{
-                j++;
-            }
+            j++;
         }
-        return cnt;
+        return i;
         
     }
 }
